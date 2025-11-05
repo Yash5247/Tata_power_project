@@ -1,0 +1,54 @@
+/* Dark theme base */
+.dark body {
+  background-color: #0f172a; /* dark.bg */
+  color: #e2e8f0; /* dark.text */
+}
+
+/* Cards and surfaces */
+.card {
+  @apply rounded-lg border shadow-card transition-colors duration-200;
+}
+.dark .card {
+  background-color: #1e293b; /* dark.card */
+  border-color: #334155; /* dark.border */
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-all duration-150;
+}
+.btn-primary {
+  @apply bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800;
+}
+.btn-outline {
+  @apply border border-slate-300 hover:bg-slate-50 active:bg-slate-100;
+}
+.dark .btn-outline {
+  @apply border-slate-600 hover:bg-slate-800 active:bg-slate-700 text-slate-200;
+}
+
+/* Status badges */
+.badge {
+  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+}
+.badge-healthy { @apply bg-green-100 text-green-700; }
+.badge-warning { @apply bg-yellow-100 text-yellow-700; }
+.badge-critical { @apply bg-red-100 text-red-700; }
+.dark .badge-healthy { @apply bg-green-900/30 text-green-300; }
+.dark .badge-warning { @apply bg-yellow-900/30 text-yellow-300; }
+.dark .badge-critical { @apply bg-red-900/30 text-red-300; }
+
+/* Responsive grid helpers */
+.dashboard-grid {
+  @apply grid gap-3 sm:gap-4;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+/* Skeleton loaders */
+.skeleton {
+  @apply animate-pulse rounded-md bg-slate-200 dark:bg-slate-700;
+}
+.skeleton-line { @apply h-3 w-full my-2 skeleton; }
+.skeleton-card { @apply h-24 skeleton; }
+
+
