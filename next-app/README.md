@@ -22,7 +22,7 @@ next-app/
 Create `.env.local` in next-app/ with:
 ```
 NEXT_PUBLIC_API_BASE_URL=
-DATABASE_URL=
+POSTGRES_URL=
 API_KEY=
 ```
 
@@ -31,6 +31,7 @@ API_KEY=
 npm run dev
 npm run build
 npm run start
+npm run db:migrate
 ```
 
 
