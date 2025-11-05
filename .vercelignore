@@ -1,8 +1,9 @@
-node_modules
-uploads
-*.log
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+next-app/
+client/
+flask_dashboard/
+ML model/
+api/
+models/
+routes/
+server.js
+uploads/
