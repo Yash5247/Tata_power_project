@@ -1,32 +1,9 @@
 {
-  "name": "login-system",
+  "name": "tata-power-main",
   "version": "1.0.0",
-  "description": "Login system with social authentication",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "client": "cd client && npm start",
-    "dev:full": "concurrently \"npm run dev\" \"npm run client\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.8.7",
-    "multer": "^2.0.1",
-    "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0",
-    "passport-jwt": "^4.0.1"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.1",
-    "nodemon": "^3.0.1"
+    "build": "cd next-app && npm ci && npm run build",
+    "start": "cd next-app && npm run start"
   }
 }

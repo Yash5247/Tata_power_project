@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "builds": [
+  "buildCommand": "cd next-app && npm ci && npm run build",
+  "outputDirectory": "next-app/.next",
+  "installCommand": "cd next-app && npm ci",
+  "framework": "nextjs",
+  "rewrites": [
     {
-      "src": "next-app/package.json",
-      "use": "@vercel/next"
+      "source": "/(.*)",
+      "destination": "/next-app/$1"
     }
   ],
   "env": {
@@ -13,7 +17,5 @@
     "NEXTAUTH_URL": "",
     "NEXTAUTH_SECRET": "",
     "SENTRY_DSN": ""
-  },
-  "buildCommand": "cd next-app && npm ci && npm run build",
-  "installCommand": "npm ci"
+  }
 }
