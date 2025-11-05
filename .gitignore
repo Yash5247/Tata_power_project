@@ -4,3 +4,12 @@ node_modules
 *.log
 .env.local
 .env*.local
+next-app/
+client/
+flask_dashboard/
+ML model/
+api/
+models/
+routes/
+server.js
+uploads/
