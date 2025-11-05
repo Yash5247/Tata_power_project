@@ -5,7 +5,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <title>Predictive Maintenance Dashboard</title>
+        <meta name="description" content="AI-powered predictive maintenance for energy infrastructure" />
+      </head>
+      <body style={{ margin: 0, padding: 0 }}>{children}</body>
     </html>
   )
 }
