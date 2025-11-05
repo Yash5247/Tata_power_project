@@ -27,12 +27,17 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const RootRedirect = () => {
+  const token = localStorage.getItem('token');
+  return <Navigate to={token ? '/dashboard' : '/login'} replace />;
+};
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<RootRedirect />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-mobile" element={<MobileVerification />} />
           <Route path="/new-connection" element={<NewConnection />} />
@@ -44,7 +49,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </ThemeProvider>
