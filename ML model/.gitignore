@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv
+venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Local data & models
+/data/*.db
+/data/*.sqlite
+/data/*.pkl
+/data/*.csv
+
+# Cache
+.cache/
+.ipynb_checkpoints/
+
+# Flask
+instance/
+*.pid
+
+# Coverage / test
+.coverage
+htmlcov/
+
+# Node (if any)
+node_modules/
+
