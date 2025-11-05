@@ -4,16 +4,19 @@ export async function OPTIONS() {
   return corsJSON({ ok: true });
 }
 
-export async function GET(_req: Request, context: { params: { days?: string } }) {
+export async function GET(req: Request, context: { params: { days?: string } }) {
   try {
     const daysNum = Number(context.params?.days || '1');
     if (!Number.isFinite(daysNum) || daysNum <= 0 || daysNum > 365) {
       return corsJSON({ error: 'days must be a number between 1 and 365' }, 400);
     }
+    const { searchParams } = new URL(req.url);
+    const equipmentId = searchParams.get('equipmentId') || undefined;
     const since = Date.now() - daysNum * 24 * 60 * 60 * 1000;
     const readings = readSensors().filter(r => {
       const t = r.timestamp ? Date.parse(r.timestamp) : Date.now();
-      return t >= since;
+      const eqOk = equipmentId ? (r.equipmentId === equipmentId) : true;
+      return t >= since && eqOk;
     });
     // Aggregate hourly avg for quick charting
     const buckets = new Map<string, { count: number; temperature: number; vibration: number; pressure: number; current: number }>();
