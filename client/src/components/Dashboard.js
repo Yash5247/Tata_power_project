@@ -35,6 +35,8 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [liveMetrics, setLiveMetrics] = useState(null);
+  const [riskState, setRiskState] = useState({ risk: 0, status: 'healthy', message: 'Initializing...' });
   const [dashboardData, setDashboardData] = useState({
     connectionNumber: 'TPDL-2024-12345',
     connectionStatus: 'Active',
@@ -60,6 +62,32 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    let timerId;
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    const poll = async () => {
+      try {
+        const { data: metrics } = await axios.get('/api/sensor-data');
+        setLiveMetrics(metrics);
+        const { data: pred } = await axios.post('/api/predictions', metrics, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        setRiskState(pred);
+      } catch (e) {
+        // Keep previous values; surface a soft error
+      } finally {
+        timerId = setTimeout(poll, 5000);
+      }
+    };
+    poll();
+
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
   }, []);
 
   const fetchUserData = async () => {
@@ -154,9 +182,9 @@ const Dashboard = () => {
         </Box>
       </Box>
 
-      {error && (
+      {(error || riskState?.status === 'warning' || riskState?.status === 'critical') && (
         <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError('')}>
-          {error}
+          {error || `${riskState.message} (Risk: ${riskState.risk}%)`}
         </Alert>
       )}
 
@@ -280,6 +308,48 @@ const Dashboard = () => {
               >
                 View Usage History
               </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Live Metrics Card */}
+        <Grid item xs={12}>
+          <Card elevation={3}>
+            <CardContent>
+              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="h6">Live Equipment Health</Typography>
+                <Chip
+                  label={`Status: ${riskState.status.toUpperCase()} • Risk ${riskState.risk}%`}
+                  color={riskState.status === 'critical' ? 'error' : riskState.status === 'warning' ? 'warning' : 'success'}
+                />
+              </Box>
+              <Divider sx={{ mb: 2 }} />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Paper variant="outlined" sx={{ p: 2 }}>
+                    <Typography variant="body2" color="text.secondary">Temperature</Typography>
+                    <Typography variant="h6">{liveMetrics?.temperature ?? '--'} °C</Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Paper variant="outlined" sx={{ p: 2 }}>
+                    <Typography variant="body2" color="text.secondary">Vibration</Typography>
+                    <Typography variant="h6">{liveMetrics?.vibration ?? '--'} mm/s</Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Paper variant="outlined" sx={{ p: 2 }}>
+                    <Typography variant="body2" color="text.secondary">Pressure</Typography>
+                    <Typography variant="h6">{liveMetrics?.pressure ?? '--'} bar</Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Paper variant="outlined" sx={{ p: 2 }}>
+                    <Typography variant="body2" color="text.secondary">Current</Typography>
+                    <Typography variant="h6">{liveMetrics?.current ?? '--'} A</Typography>
+                  </Paper>
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
