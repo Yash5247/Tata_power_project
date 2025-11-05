@@ -2,25 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
+      "src": "next-app/package.json",
+      "use": "@vercel/next"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/$1"
-    }
-  ]
+  "env": {
+    "NEXT_PUBLIC_API_BASE_URL": "",
+    "DATABASE_URL": "",
+    "API_KEY": ""
+  }
 }
