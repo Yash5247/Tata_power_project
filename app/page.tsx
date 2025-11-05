@@ -1,65 +1,62 @@
 'use client';
 
+import { useState } from 'react';
 import { usePredictions, useAlerts } from '@/lib/hooks';
 import SensorTrendChart from '@/components/SensorTrendChart';
 import HealthScoreChart from '@/components/HealthScoreChart';
 import FailureRateChart from '@/components/FailureRateChart';
 import EquipmentTable from '@/components/EquipmentTable';
 import AlertPanel from '@/components/AlertPanel';
+import KPICards from '@/components/KPICards';
+import AnomalyTimeline from '@/components/AnomalyTimeline';
+import MaintenanceSchedule from '@/components/MaintenanceSchedule';
+import SearchFilter from '@/components/SearchFilter';
+import PerformanceMetrics from '@/components/PerformanceMetrics';
+import ExportButton from '@/components/ExportButton';
 
 export default function HomePage() {
   const { data: predictionsData, isLoading: predictionsLoading } = usePredictions();
   const { data: alertsData } = useAlerts();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
 
-  const summary = predictionsData?.summary || {
-    total: 24,
-    healthy: 18,
-    warning: 4,
-    critical: 2,
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
   };
+
+  const handleFilter = (status: string) => {
+    setFilterStatus(status);
+  };
+
+  // Filter equipment based on search and status
+  const filteredEquipment = predictionsData?.equipment?.filter((eq: any) => {
+    const matchesSearch = eq.equipmentId.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = filterStatus === 'all' || eq.status === filterStatus;
+    return matchesSearch && matchesFilter;
+  }) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            🔧 Predictive Maintenance Dashboard
-          </h1>
-          <p className="text-blue-100">
-            AI-powered monitoring system for energy infrastructure
-          </p>
+        <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              🔧 Predictive Maintenance Dashboard
+            </h1>
+            <p className="text-blue-100">
+              AI-powered monitoring system for energy infrastructure
+            </p>
+          </div>
+          <ExportButton />
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-            <div className="text-4xl font-bold text-gray-800 mb-2">
-              {predictionsLoading ? '...' : summary.total}
-            </div>
-            <div className="text-gray-600 font-semibold">Total Equipment</div>
-          </div>
-          
-          <div className="bg-green-500 rounded-lg shadow-lg p-6 text-center text-white">
-            <div className="text-4xl font-bold mb-2">
-              {predictionsLoading ? '...' : summary.healthy}
-            </div>
-            <div className="font-semibold">Healthy Devices</div>
-          </div>
-          
-          <div className="bg-yellow-500 rounded-lg shadow-lg p-6 text-center text-white">
-            <div className="text-4xl font-bold mb-2">
-              {predictionsLoading ? '...' : summary.warning}
-            </div>
-            <div className="font-semibold">At Risk</div>
-          </div>
-          
-          <div className="bg-red-500 rounded-lg shadow-lg p-6 text-center text-white">
-            <div className="text-4xl font-bold mb-2">
-              {predictionsLoading ? '...' : summary.critical}
-            </div>
-            <div className="font-semibold">Critical</div>
-          </div>
+        <KPICards />
+
+        {/* Performance Metrics */}
+        <div className="mb-6">
+          <PerformanceMetrics />
         </div>
 
         {/* System Status */}
@@ -78,6 +75,9 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* Search and Filter */}
+        <SearchFilter onSearch={handleSearch} onFilter={handleFilter} />
+
         {/* Charts Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <SensorTrendChart />
@@ -87,6 +87,12 @@ export default function HomePage() {
         {/* Charts Row 2 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <HealthScoreChart />
+          <AnomalyTimeline />
+        </div>
+
+        {/* Maintenance Schedule and Alerts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <MaintenanceSchedule />
           <AlertPanel />
         </div>
 
@@ -96,12 +102,30 @@ export default function HomePage() {
         </div>
 
         {/* Footer Info */}
-        <div className="bg-white rounded-lg shadow-md p-6 text-center">
-          <p className="text-gray-600">
-            <span className="font-semibold">{alertsData?.criticalCount || 0}</span> critical alerts • {' '}
-            <span className="font-semibold">{alertsData?.warningCount || 0}</span> warnings • {' '}
-            Real-time monitoring active
-          </p>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold text-gray-800">
+                {alertsData?.criticalCount || 0}
+              </div>
+              <div className="text-sm text-gray-600">Critical Alerts</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-800">
+                {alertsData?.warningCount || 0}
+              </div>
+              <div className="text-sm text-gray-600">Warnings</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-800">
+                {predictionsData?.equipment?.filter((e: any) => e.status === 'healthy').length || 0}%
+              </div>
+              <div className="text-sm text-gray-600">System Uptime</div>
+            </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-200 text-center text-sm text-gray-600">
+            Real-time monitoring active • Data refreshes automatically
+          </div>
         </div>
       </div>
     </div>
