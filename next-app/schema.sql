@@ -37,4 +37,22 @@ CREATE INDEX IF NOT EXISTS idx_sensor_readings_equipment_ts ON sensor_readings (
 CREATE INDEX IF NOT EXISTS idx_predictions_equipment_ts ON predictions (equipment_id, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_alerts_ts ON alerts (ts DESC);
 
+-- Auth: users and preferences
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT,
+  name TEXT,
+  role TEXT DEFAULT 'viewer',
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS user_preferences (
+  user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+  timezone TEXT,
+  theme TEXT,
+  notifications BOOLEAN DEFAULT true,
+  PRIMARY KEY (user_id)
+);
+
 

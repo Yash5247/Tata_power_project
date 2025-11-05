@@ -24,6 +24,8 @@ Create `.env.local` in next-app/ with:
 NEXT_PUBLIC_API_BASE_URL=
 POSTGRES_URL=
 API_KEY=
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=
 ```
 
 ## Scripts
