@@ -1,9 +1,20 @@
 {
-  "name": "tata-power-main",
+  "name": "tata-power",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd next-app && npm ci && npm run build",
-    "start": "cd next-app && npm run start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12",
+    "@types/node": "20.12.12"
   }
 }
