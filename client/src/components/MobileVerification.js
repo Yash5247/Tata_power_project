@@ -9,16 +9,12 @@ import {
   Alert,
   CircularProgress,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
 const MobileVerification = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleMobileSubmit = async (e) => {
     e.preventDefault();

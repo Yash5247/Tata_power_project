@@ -10,9 +10,6 @@ import {
   Grid,
   CircularProgress,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
 const NewConnection = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -23,7 +20,6 @@ const NewConnection = () => {
   const [signatureFile, setSignatureFile] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
