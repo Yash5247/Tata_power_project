@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { appendSensor, corsJSON } from '@/lib/server/model';
+import { rateLimit } from '@/lib/server/rateLimit';
 
 export async function GET() {
   const now = new Date();
@@ -19,6 +20,8 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
+    const rl = rateLimit(req, { id: 'sensor-post', capacity: 60, refillPerSec: 1 });
+    if (!rl.allowed) return corsJSON({ error: 'Rate limit exceeded' }, 429);
     const body = await req.json();
     const point = {
       temperature: Number(body.temperature),

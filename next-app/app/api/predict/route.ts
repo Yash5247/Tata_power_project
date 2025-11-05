@@ -1,4 +1,5 @@
 import { corsJSON, loadModel, predictWithSimple } from '@/lib/server/model';
+import { rateLimit } from '@/lib/server/rateLimit';
 
 export async function OPTIONS() {
   return corsJSON({ ok: true });
@@ -6,6 +7,8 @@ export async function OPTIONS() {
 
 export async function GET(req: Request) {
   try {
+    const rl = rateLimit(req, { id: 'predict', capacity: 30, refillPerSec: 0.5 });
+    if (!rl.allowed) return corsJSON({ error: 'Rate limit exceeded' }, 429);
     const { searchParams } = new URL(req.url);
     const temperature = Number(searchParams.get('temperature'));
     const vibration = Number(searchParams.get('vibration'));

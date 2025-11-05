@@ -11,6 +11,9 @@
     "POSTGRES_URL": "",
     "API_KEY": "",
     "NEXTAUTH_URL": "",
-    "NEXTAUTH_SECRET": ""
-  }
+    "NEXTAUTH_SECRET": "",
+    "SENTRY_DSN": ""
+  },
+  "buildCommand": "cd next-app && npm ci && npm run build",
+  "installCommand": "npm ci"
 }

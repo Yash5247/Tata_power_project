@@ -1,4 +1,5 @@
 import { corsJSON, trainSimpleModel } from '@/lib/server/model';
+import { rateLimit } from '@/lib/server/rateLimit';
 
 export async function OPTIONS() {
   return corsJSON({ ok: true });
@@ -6,6 +7,8 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
+    const rl = rateLimit(req, { id: 'train', capacity: 10, refillPerSec: 0.1 });
+    if (!rl.allowed) return corsJSON({ error: 'Rate limit exceeded' }, 429);
     const body = await req.json();
     if (!Array.isArray(body) || body.length === 0) {
       return corsJSON({ error: 'Body must be a non-empty array of sensor points' }, 400);
