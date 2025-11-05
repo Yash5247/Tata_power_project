@@ -13,8 +13,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [{ "name": "next" }]
+    "plugins": [{ "name": "next" }],
+    "paths": {}
   },
   "include": ["next-env.d.ts", "app/**/*.ts", "app/**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "next-app", "client", "flask_dashboard", "ML model", "api", "models", "routes"]
+  "exclude": ["node_modules", "next-app", "client", "flask_dashboard", "ML model", "api", "models", "routes", ".next"]
 }
