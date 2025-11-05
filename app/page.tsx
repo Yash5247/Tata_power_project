@@ -84,8 +84,7 @@ export default function HomePage() {
               width: '12px',
               height: '12px',
               background: '#10b981',
-              borderRadius: '50%',
-              animation: 'pulse 2s infinite'
+              borderRadius: '50%'
             }}></div>
             <span style={{ color: '#666' }}>All systems operational - Monitoring 24/7</span>
           </div>
@@ -110,13 +109,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
     </div>
   )
 }
