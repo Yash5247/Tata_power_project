@@ -30,19 +30,51 @@ export default function HealthScoreChart() {
   
   const COLORS = chartData.map((item: any) => getColor(item.status));
   
+  const avgHealth = chartData.length > 0
+    ? Math.round(chartData.reduce((sum: number, d: any) => sum + d.healthScore, 0) / chartData.length)
+    : 0;
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Equipment Health Scores (Top 10)</h3>
-      <ResponsiveContainer width="100%" height={300}>
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">Equipment Health Scores</h3>
+          <p className="text-sm text-gray-500 mt-1">Top 10 equipment by health status</p>
+        </div>
+        <div className="text-right">
+          <div className="text-xs text-gray-500">Average</div>
+          <div className="text-lg font-bold text-gray-900">{avgHealth}%</div>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={350}>
         <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="equipment" />
-          <YAxis domain={[0, 100]} />
-          <Tooltip />
-          <Legend />
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+          <XAxis 
+            dataKey="equipment" 
+            stroke="#6b7280"
+            style={{ fontSize: '12px' }}
+            angle={-45}
+            textAnchor="end"
+            height={80}
+          />
+          <YAxis 
+            domain={[0, 100]} 
+            stroke="#6b7280"
+            style={{ fontSize: '12px' }}
+            label={{ value: 'Health Score (%)', angle: -90, position: 'insideLeft' }}
+          />
+          <Tooltip 
+            contentStyle={{ 
+              backgroundColor: 'white', 
+              border: '1px solid #e5e7eb',
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+            }}
+          />
           <Bar 
             dataKey="healthScore" 
             radius={[8, 8, 0, 0]}
+            name="Health Score (%)"
           >
             {chartData.map((entry: any, index: number) => (
               <Cell key={`cell-${index}`} fill={getColor(entry.status)} />
@@ -50,6 +82,20 @@ export default function HealthScoreChart() {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+      <div className="mt-4 flex items-center justify-center gap-6 text-xs">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-green-500"></div>
+          <span className="text-gray-600">Healthy</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-yellow-500"></div>
+          <span className="text-gray-600">At Risk</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-red-500"></div>
+          <span className="text-gray-600">Critical</span>
+        </div>
+      </div>
     </div>
   );
 }

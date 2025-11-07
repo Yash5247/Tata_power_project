@@ -60,27 +60,32 @@ export default function PerformanceMetrics() {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Performance Metrics</h3>
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">Performance Metrics</h3>
+          <p className="text-sm text-gray-500 mt-1">Key performance indicators and system health</p>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric, index) => (
           <div
             key={index}
-            className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+            className="p-5 border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300 hover:border-blue-300 bg-gradient-to-br from-white to-gray-50"
           >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-2xl">{metric.icon}</span>
-              <span className={`text-lg font-bold ${metric.color}`}>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-3xl">{metric.icon}</span>
+              <span className={`text-2xl font-bold ${metric.color}`}>
                 {metric.value}
               </span>
             </div>
-            <div className="text-sm text-gray-600 mb-1">{metric.label}</div>
-            <div className={`text-xs font-semibold ${
+            <div className="text-sm font-medium text-gray-700 mb-2">{metric.label}</div>
+            <div className={`text-xs font-semibold px-2 py-1 rounded-full inline-block ${
               metric.trend.includes('↑') || metric.trend.includes('✓')
-                ? 'text-green-600'
+                ? 'bg-green-100 text-green-700'
                 : metric.trend.includes('→')
-                ? 'text-yellow-600'
-                : 'text-red-600'
+                ? 'bg-yellow-100 text-yellow-700'
+                : 'bg-red-100 text-red-700'
             }`}>
               {metric.trend}
             </div>
