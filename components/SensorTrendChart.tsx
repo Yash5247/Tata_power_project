@@ -115,25 +115,25 @@ export default function SensorTrendChart({ timeRange = '24h' }: { timeRange?: st
         <div>
           <div className="text-xs text-gray-500">Max Temp</div>
           <div className="text-sm font-semibold text-red-600">
-            {Math.max(...chartData.map((d: any) => d.temperature))}°C
+            {chartData.length > 0 ? Math.max(...chartData.map((d: any) => d.temperature || 0)).toFixed(1) : '0'}°C
           </div>
         </div>
         <div>
           <div className="text-xs text-gray-500">Max Vib</div>
           <div className="text-sm font-semibold text-blue-600">
-            {Math.max(...chartData.map((d: any) => d.vibration))} mm/s
+            {chartData.length > 0 ? Math.max(...chartData.map((d: any) => d.vibration || 0)).toFixed(1) : '0'} mm/s
           </div>
         </div>
         <div>
           <div className="text-xs text-gray-500">Max Press</div>
           <div className="text-sm font-semibold text-green-600">
-            {Math.max(...chartData.map((d: any) => d.pressure))} psi
+            {chartData.length > 0 ? Math.max(...chartData.map((d: any) => d.pressure || 0)).toFixed(1) : '0'} psi
           </div>
         </div>
         <div>
           <div className="text-xs text-gray-500">Max Current</div>
           <div className="text-sm font-semibold text-yellow-600">
-            {Math.max(...chartData.map((d: any) => d.current))} A
+            {chartData.length > 0 ? Math.max(...chartData.map((d: any) => d.current || 0)).toFixed(1) : '0'} A
           </div>
         </div>
       </div>
