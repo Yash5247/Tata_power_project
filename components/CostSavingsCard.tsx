@@ -57,13 +57,13 @@ export default function CostSavingsCard() {
   // Format currency in Indian format (Lakhs/Crores)
   const formatCurrency = (amount: number) => {
     if (amount >= 10000000) { // 1 Crore
-      return `₹${(amount / 10000000).toFixed(2)} Cr`;
+      return `₹${(amount / 10000000).toFixed(2)} Cr (INR)`;
     } else if (amount >= 100000) { // 1 Lakh
-      return `₹${(amount / 100000).toFixed(2)} L`;
+      return `₹${(amount / 100000).toFixed(2)} L (INR)`;
     } else if (amount >= 1000) {
-      return `₹${(amount / 1000).toFixed(0)}K`;
+      return `₹${(amount / 1000).toFixed(0)}K (INR)`;
     }
-    return `₹${amount.toFixed(0)}`;
+    return `₹${amount.toFixed(0)} (INR)`;
   };
 
   return (
@@ -138,7 +138,7 @@ export default function CostSavingsCard() {
         
         {/* Footer Note */}
         <div className="text-xs text-green-100 pt-2 border-t border-white/20">
-          Based on industry averages: {formatCurrency(avgFailureCost)} failure cost + {formatCurrency(downtimeCostPerDay)}/day downtime
+          All amounts in Indian Rupees (INR). Based on industry averages: {formatCurrency(avgFailureCost)} failure cost + {formatCurrency(downtimeCostPerDay)}/day downtime
         </div>
       </div>
     </div>
