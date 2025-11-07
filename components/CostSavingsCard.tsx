@@ -26,14 +26,14 @@ export default function CostSavingsCard() {
   const warningCount = equipment.filter((e: any) => e.status === 'warning').length;
   const healthyCount = equipment.filter((e: any) => e.status === 'healthy').length;
 
-  // Calculate estimated cost savings
+  // Calculate estimated cost savings (in Rupees)
   const preventedFailures = criticalCount + warningCount;
   
-  // Realistic cost assumptions for energy infrastructure
-  const avgFailureCost = 75000; // $75k per failure (includes downtime, repair, customer impact)
-  const emergencyRepairCost = 45000; // $45k for emergency repairs
-  const scheduledMaintenanceCost = 8000; // $8k for scheduled maintenance
-  const downtimeCostPerDay = 15000; // $15k per day of downtime
+  // Realistic cost assumptions for energy infrastructure (in INR)
+  const avgFailureCost = 6250000; // ₹62.5 Lakhs per failure (includes downtime, repair, customer impact)
+  const emergencyRepairCost = 3750000; // ₹37.5 Lakhs for emergency repairs
+  const scheduledMaintenanceCost = 650000; // ₹6.5 Lakhs for scheduled maintenance
+  const downtimeCostPerDay = 1250000; // ₹12.5 Lakhs per day of downtime
   const avgDowntimeDays = 3.5; // Average days of downtime per failure
   
   // Calculate savings
@@ -49,19 +49,21 @@ export default function CostSavingsCard() {
     : 0;
   
   // ROI calculation (investment in predictive maintenance system)
-  const systemInvestment = equipment.length * 2500; // $2.5k per equipment for PM system
+  const systemInvestment = equipment.length * 200000; // ₹2 Lakhs per equipment for PM system
   const roi = systemInvestment > 0 
     ? Math.round((estimatedSavings / systemInvestment) * 100) 
     : 0;
   
-  // Format currency
+  // Format currency in Indian format (Lakhs/Crores)
   const formatCurrency = (amount: number) => {
-    if (amount >= 1000000) {
-      return `$${(amount / 1000000).toFixed(2)}M`;
+    if (amount >= 10000000) { // 1 Crore
+      return `₹${(amount / 10000000).toFixed(2)} Cr`;
+    } else if (amount >= 100000) { // 1 Lakh
+      return `₹${(amount / 100000).toFixed(2)} L`;
     } else if (amount >= 1000) {
-      return `$${(amount / 1000).toFixed(0)}K`;
+      return `₹${(amount / 1000).toFixed(0)}K`;
     }
-    return `$${amount.toFixed(0)}`;
+    return `₹${amount.toFixed(0)}`;
   };
 
   return (
