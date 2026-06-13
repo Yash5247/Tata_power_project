@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run build",
+    "ml:train": "python train.py",
+    "ml:evaluate": "python evaluate.py",
+    "ml:predict": "python predict.py",
+    "ml:pipeline": "python train.py && python evaluate.py && python predict.py"
   },
   "dependencies": {
     "next": "14.2.5",

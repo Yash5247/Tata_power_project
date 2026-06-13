@@ -3,7 +3,7 @@ client/
 flask_dashboard/
 ML model/
 api/
-models/
 routes/
 server.js
 uploads/
+models/*.pkl

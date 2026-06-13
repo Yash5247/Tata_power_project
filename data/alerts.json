@@ -1,0 +1,39 @@
+{
+  "alerts": [
+    {
+      "id": "alert-EQ-1",
+      "equipmentId": "EQ-1",
+      "type": "critical",
+      "message": "EQ-1: Critical failure risk detected. Stop equipment and dispatch maintenance team immediately.",
+      "timestamp": "2026-06-13T16:02:32.882519",
+      "riskCategory": "Critical"
+    },
+    {
+      "id": "alert-EQ-2",
+      "equipmentId": "EQ-2",
+      "type": "critical",
+      "message": "EQ-2: Critical failure risk detected. Stop equipment and dispatch maintenance team immediately.",
+      "timestamp": "2026-06-13T16:02:32.882519",
+      "riskCategory": "Critical"
+    },
+    {
+      "id": "alert-EQ-3",
+      "equipmentId": "EQ-3",
+      "type": "critical",
+      "message": "EQ-3: Critical failure risk detected. Stop equipment and dispatch maintenance team immediately.",
+      "timestamp": "2026-06-13T16:02:32.882519",
+      "riskCategory": "Critical"
+    },
+    {
+      "id": "alert-EQ-4",
+      "equipmentId": "EQ-4",
+      "type": "critical",
+      "message": "EQ-4: Critical failure risk detected. Stop equipment and dispatch maintenance team immediately.",
+      "timestamp": "2026-06-13T16:02:32.882519",
+      "riskCategory": "Critical"
+    }
+  ],
+  "criticalCount": 4,
+  "warningCount": 0,
+  "totalCount": 4
+}

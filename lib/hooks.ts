@@ -38,3 +38,11 @@ export function useHistoricalData(days: number = 7) {
   return { data, error, isLoading, mutate };
 }
 
+export function useMLMetrics() {
+  const { data, error, isLoading, mutate } = useSWR('/api/ml-metrics', fetcher, {
+    refreshInterval: 60000,
+  });
+
+  return { data, error, isLoading, mutate };
+}
+

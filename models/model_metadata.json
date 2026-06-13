@@ -1,0 +1,77 @@
+{
+  "best_model": "XGBoost",
+  "dataset": "AI4I 2020 Predictive Maintenance",
+  "dataset_size": 10000,
+  "failure_rate": 0.0339,
+  "comparison": [
+    {
+      "model": "Logistic Regression",
+      "accuracy": 0.8245,
+      "precision": 0.1418,
+      "recall": 0.8235,
+      "f1_score": 0.2419,
+      "roc_auc": 0.9069
+    },
+    {
+      "model": "Decision Tree",
+      "accuracy": 0.9595,
+      "precision": 0.4414,
+      "recall": 0.7206,
+      "f1_score": 0.5475,
+      "roc_auc": 0.8533
+    },
+    {
+      "model": "Random Forest",
+      "accuracy": 0.9745,
+      "precision": 0.6076,
+      "recall": 0.7059,
+      "f1_score": 0.6531,
+      "roc_auc": 0.9569
+    },
+    {
+      "model": "XGBoost",
+      "accuracy": 0.9815,
+      "precision": 0.7183,
+      "recall": 0.75,
+      "f1_score": 0.7338,
+      "roc_auc": 0.9712
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "Rotational speed [rpm]",
+      "importance": 0.32636019587516785
+    },
+    {
+      "feature": "Torque [Nm]",
+      "importance": 0.24463047087192535
+    },
+    {
+      "feature": "Tool wear [min]",
+      "importance": 0.21705909073352814
+    },
+    {
+      "feature": "Air temperature [K]",
+      "importance": 0.08161728084087372
+    },
+    {
+      "feature": "Type_L",
+      "importance": 0.05232404172420502
+    },
+    {
+      "feature": "Process temperature [K]",
+      "importance": 0.04909585788846016
+    },
+    {
+      "feature": "Type_M",
+      "importance": 0.02891307696700096
+    }
+  ],
+  "best_metrics": {
+    "accuracy": 0.9815,
+    "precision": 0.7183,
+    "recall": 0.75,
+    "f1_score": 0.7338,
+    "roc_auc": 0.9712
+  }
+}

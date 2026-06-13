@@ -78,7 +78,10 @@ export default function EquipmentTable() {
                 Health Score
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Failure Risk
+                Risk Score
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Risk Category
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Status
@@ -115,7 +118,18 @@ export default function EquipmentTable() {
                   </div>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                  {eq.failureProbability}%
+                  {eq.riskScore ?? eq.failureProbability}%
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm">
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                    eq.riskCategory === 'Critical' ? 'bg-red-100 text-red-800' :
+                    eq.riskCategory === 'High Risk' ? 'bg-orange-100 text-orange-800' :
+                    eq.riskCategory === 'Medium Risk' ? 'bg-yellow-100 text-yellow-800' :
+                    eq.riskCategory === 'Low Risk' ? 'bg-blue-100 text-blue-800' :
+                    'bg-green-100 text-green-800'
+                  }`}>
+                    {eq.riskCategory || eq.status}
+                  </span>
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   {getStatusBadge(eq.status)}

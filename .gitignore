@@ -8,8 +8,9 @@ next-app/
 client/
 flask_dashboard/
 ML model/
-api/
-models/
+/api/
+__pycache__/
+*.pyc
 routes/
 server.js
 uploads/

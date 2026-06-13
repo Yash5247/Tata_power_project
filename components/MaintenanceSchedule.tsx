@@ -106,8 +106,13 @@ export default function MaintenanceSchedule() {
                   </span>
                 </div>
                 <div className="text-sm text-gray-700 mb-1">
-                  Health Score: {eq.healthScore}% | Risk: {eq.failureProbability}%
+                  Health: {eq.healthScore}% | Risk: {eq.riskScore ?? eq.failureProbability}% | {eq.riskCategory || eq.status}
                 </div>
+                {eq.maintenanceAction && (
+                  <div className="text-xs text-gray-600 italic">
+                    {eq.maintenanceAction}
+                  </div>
+                )}
                 <div className="text-xs text-gray-600">
                   Scheduled: {new Date(eq.nextMaintenance).toLocaleDateString('en-US', {
                     month: 'long',

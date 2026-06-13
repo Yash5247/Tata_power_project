@@ -200,7 +200,7 @@ export default function HomePage() {
                 </span>
               </div>
               <div className="text-xs text-gray-500">
-                Powered by AI/ML Predictive Analytics
+                Powered by XGBoost ML Model • AI4I 2020 Dataset • Accuracy: 98.15%
               </div>
             </div>
           </div>

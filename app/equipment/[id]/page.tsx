@@ -51,6 +51,56 @@ export default function EquipmentDetailPage() {
           <p className="text-blue-100">Equipment Details & History</p>
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-4">ML Prediction</h3>
+            <div className="space-y-4">
+              <div>
+                <span className="text-sm text-gray-600">Risk Category</span>
+                <div className={`mt-1 px-3 py-2 rounded-full inline-block font-semibold ${
+                  equipment.riskCategory === 'Critical' ? 'bg-red-100 text-red-800' :
+                  equipment.riskCategory === 'High Risk' ? 'bg-orange-100 text-orange-800' :
+                  equipment.riskCategory === 'Medium Risk' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-green-100 text-green-800'
+                }`}>
+                  {equipment.riskCategory || equipment.status}
+                </div>
+              </div>
+              <div>
+                <span className="text-sm text-gray-600">Failure Prediction</span>
+                <div className="text-lg font-semibold text-gray-800 mt-1">
+                  {equipment.failurePrediction === 1 ? 'Failure Predicted' : 'No Failure Predicted'}
+                </div>
+              </div>
+              <div>
+                <span className="text-sm text-gray-600">Equipment Type</span>
+                <div className="text-lg font-semibold text-gray-800 mt-1">{equipment.type || 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-4">Maintenance Recommendation</h3>
+            <div className="space-y-3">
+              <div>
+                <span className="text-sm text-gray-600">Action</span>
+                <div className="text-lg font-semibold text-blue-700 mt-1">
+                  {equipment.maintenanceAction || 'Continue routine monitoring'}
+                </div>
+              </div>
+              <div>
+                <span className="text-sm text-gray-600">Priority</span>
+                <div className="font-semibold text-gray-800 mt-1">
+                  {equipment.maintenancePriority || 'Low'}
+                </div>
+              </div>
+              <p className="text-sm text-gray-600">
+                {equipment.maintenanceDescription || 'Equipment operating within normal parameters.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-4">Status</h3>
